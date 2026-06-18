@@ -18,11 +18,11 @@ Framework de automação de testes web e API desenvolvido com Cypress e JavaScri
 ```
 DESAFIO/
 ├── bdd/
-│   ├── login.feature           # Cenários de Login em Gherkin
-│   ├── busca.feature           # Cenários de Busca em Gherkin
-│   ├── carrinho.feature        # Cenários de Carrinho em Gherkin
-│   ├── checkout.feature        # Cenários de Checkout em Gherkin
-│   └── api.feature             # Cenários de API em Gherkin
+│   ├── 1_login.feature           # Cenários de Login em Gherkin
+│   ├── 2_busca.feature           # Cenários de Busca em Gherkin
+│   ├── 3_carrinho.feature        # Cenários de Carrinho em Gherkin
+│   ├── 4_checkout.feature        # Cenários de Checkout em Gherkin
+│   └── api.feature               # Cenários de API em Gherkin
 ├── cypress/
 │   ├── fixtures/
 │   ├── pages/
