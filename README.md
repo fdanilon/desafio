@@ -1,20 +1,21 @@
-Desafio de Automação de Testes
+# Desafio de Automação de Testes
 
 Framework de automação de testes web e API desenvolvido com Cypress e JavaScript, com cenários escritos seguindo o padrão BDD (Gherkin).
 
+---
 
-🛠️ Tecnologias Utilizadas
+## 🛠️ Tecnologias Utilizadas
 
+- **Cypress** v15.17.0
+- **JavaScript**
+- **BDD / Gherkin** (cenários na pasta `/bdd`)
+- **Page Objects** (padrão de organização dos testes)
 
-Cypress v15.17.0
-JavaScript
-BDD / Gherkin (cenários na pasta /bdd)
-Page Objects (padrão de organização dos testes)
+---
 
+## 📁 Estrutura do Projeto
 
-
-📁 Estrutura do Projeto
-
+```
 DESAFIO/
 ├── bdd/
 │   ├── login.feature           # Cenários de Login em Gherkin
@@ -44,69 +45,92 @@ DESAFIO/
 ├── cypress.config.js
 ├── package.json
 └── README.md
+```
 
+---
 
-✅ Casos de Teste
+## ✅ Casos de Teste
 
-Web — automationexercise.com
+### Web — [automationexercise.com](https://www.automationexercise.com)
 
-FeatureIDCenárioTipoLoginCT001Login com credenciais válidas deve redirecionar para área logadaPositivoLoginCT002Login com credenciais inválidas deve exibir mensagem de erroNegativoBuscaCT001Busca por produto existente deve exibir o produto na listagemPositivoBuscaCT002Busca por produto inexistente não deve exibir resultadosNegativoCarrinhoCT001Adicionar produto existente ao carrinho deve exibir o produto no carrinhoPositivoCarrinhoCT002Acessar carrinho sem produtos deve exibir mensagem de carrinho vazioNegativoCheckoutCT001Produto adicionado ao carrinho deve ter nome e preço validados no checkoutPositivoCheckoutCT002Prosseguir para checkout sem login deve exibir modal de autenticaçãoNegativo
+| Feature | ID | Cenário | Tipo |
+|---|---|---|---|
+| Login | CT001 | Login com credenciais válidas deve redirecionar para área logada | Positivo |
+| Login | CT002 | Login com credenciais inválidas deve exibir mensagem de erro | Negativo |
+| Busca | CT001 | Busca por produto existente deve exibir o produto na listagem | Positivo |
+| Busca | CT002 | Busca por produto inexistente não deve exibir resultados | Negativo |
+| Carrinho | CT001 | Adicionar produto existente ao carrinho deve exibir o produto no carrinho | Positivo |
+| Carrinho | CT002 | Acessar carrinho sem produtos deve exibir mensagem de carrinho vazio | Negativo |
+| Checkout | CT001 | Produto adicionado ao carrinho deve ter nome e preço validados no checkout | Positivo |
+| Checkout | CT002 | Prosseguir para checkout sem login deve exibir modal de autenticação | Negativo |
 
-API — api.trello.com
+### API — [api.trello.com](https://api.trello.com)
 
-FeatureIDCenárioTipoAPICT001GET com ID válido deve retornar status 200 e exibir o name da listPositivoAPICT002GET com ID inválido deve retornar status 404Negativo
+| Feature | ID | Cenário | Tipo |
+|---|---|---|---|
+| API | CT001 | GET com ID válido deve retornar status 200 e exibir o name da list | Positivo |
+| API | CT002 | GET com ID inválido deve retornar status 404 | Negativo |
 
+---
 
-⚙️ Pré-requisitos
+## ⚙️ Pré-requisitos
 
+- [Node.js](https://nodejs.org/) v18 ou superior
+- npm v8 ou superior
 
-Node.js v18 ou superior
-npm v8 ou superior
+---
 
-
-
-🚀 Instalação
+## 🚀 Instalação
 
 Clone o repositório e instale as dependências:
 
-bashgit clone https://github.com/seu-usuario/desafio.git
+```bash
+git clone https://github.com/seu-usuario/desafio.git
 cd desafio
 npm install
+```
 
+---
 
-▶️ Execução dos Testes
+## ▶️ Execução dos Testes
 
-Interface gráfica do Cypress
+### Interface gráfica do Cypress
+```bash
+npm run cy:open
+```
 
-bashnpm run cy:open
+### Todos os testes em modo headless
+```bash
+npm run cy:run
+```
 
-Todos os testes em modo headless
+### Apenas testes Web
+```bash
+npm run cy:run:web
+```
 
-bashnpm run cy:run
+### Apenas testes de API
+```bash
+npm run cy:run:api
+```
 
-Apenas testes Web
+### Rodar uma feature específica (debug pontual)
+```bash
+npx cypress run --spec "cypress/test/e2e/01-login.cy.js"
+```
 
-bashnpm run cy:run:web
+---
 
-Apenas testes de API
+## 🧩 Padrões Utilizados
 
-bashnpm run cy:run:api
+**Page Objects**
+As ações de cada página estão encapsuladas em classes próprias dentro de `cypress/pages/`. Isso centraliza a manutenção dos seletores e permite encadear ações entre páginas de forma organizada.
 
-Rodar uma feature específica (debug pontual)
+**Locators centralizados**
+Todos os seletores estão mapeados em `cypress/support/locators.js`, evitando repetição e facilitando atualizações quando a interface muda.
 
-bashnpx cypress run --spec "cypress/test/e2e/01-login.cy.js"
+**BDD / Gherkin**
+Os cenários de teste estão documentados em linguagem natural na pasta `/bdd`, com um arquivo `.feature` por funcionalidade (Login, Busca, Carrinho, Checkout e API). Cada feature mantém sua própria numeração de cenários (CT001, CT002...), servindo como documentação viva do comportamento esperado do sistema.
 
-
-🧩 Padrões Utilizados
-
-Page Objects
-As ações de cada página estão encapsuladas em classes próprias dentro de cypress/pages/. Isso centraliza a manutenção dos seletores e permite encadear ações entre páginas de forma organizada.
-
-Locators centralizados
-Todos os seletores estão mapeados em cypress/support/locators.js, evitando repetição e facilitando atualizações quando a interface muda.
-
-BDD / Gherkin
-Os cenários de teste estão documentados em linguagem natural na pasta /bdd, com um arquivo .feature por funcionalidade (Login, Busca, Carrinho, Checkout e API). Cada feature mantém sua própria numeração de cenários (CT001, CT002...), servindo como documentação viva do comportamento esperado do sistema.
-
-Separação por Feature
-Tanto os arquivos .feature quanto os specs .cy.js estão organizados individualmente por funcionalidade, seguindo a recomendação oficial do Cypress de estruturar os testes refletindo as áreas da aplicação, facilitando manutenção e execução isolada de cada conjunto de testes.
+**Separação por Feature**
+Tanto os arquivos `.feature` quanto os specs `.cy.js` estão organizados individualmente por funcionalidade, seguindo a recomendação oficial do Cypress de estruturar os testes refletindo as áreas da aplicação, facilitando manutenção e execução isolada de cada conjunto de testes.
