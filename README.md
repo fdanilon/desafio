@@ -18,23 +18,30 @@ Framework de automação de testes web e API desenvolvido com Cypress e JavaScri
 ```
 DESAFIO/
 ├── bdd/
-│   └── cenarios.feature        # Cenários escritos em Gherkin (BDD)
+│   ├── login.feature           # Cenários de Login em Gherkin
+│   ├── busca.feature           # Cenários de Busca em Gherkin
+│   ├── carrinho.feature        # Cenários de Carrinho em Gherkin
+│   ├── checkout.feature        # Cenários de Checkout em Gherkin
+│   └── api.feature             # Cenários de API em Gherkin
 ├── cypress/
-│   ├── fixtures/               
+│   ├── fixtures/
 │   ├── pages/
 │   │   ├── login/
 │   │   │   └── index.js        # Page Object da página de Login
 │   │   └── produto/
 │   │       └── index.js        # Page Object da página de Produtos
 │   ├── support/
-│   │   ├── commands.js         
-│   │   ├── e2e.js              
+│   │   ├── commands.js
+│   │   ├── e2e.js
 │   │   └── locators.js         # Mapeamento centralizado de seletores
 │   └── test/
 │       ├── api/
-│       │   └── trello-api.cy.js  # Testes de API
+│       │   └── 01-get.cy.js          # Testes de API
 │       └── e2e/
-│           └── automation-ex.cy.js  # Testes Web
+│           ├── 01-login.cy.js        # Testes de Login
+│           ├── 02-busca.cy.js        # Testes de Busca
+│           ├── 03-carrinho.cy.js     # Testes de Carrinho
+│           └── 04-checkout.cy.js     # Testes de Checkout
 ├── cypress.config.js
 ├── package.json
 └── README.md
@@ -46,23 +53,23 @@ DESAFIO/
 
 ### Web — [automationexercise.com](https://www.automationexercise.com)
 
-| ID | Cenário | Tipo |
-|---|---|---|
-| CT001 | Login com credenciais válidas deve redirecionar para área logada | Positivo |
-| CT002 | Login com credenciais inválidas deve exibir mensagem de erro | Negativo |
-| CT003 | Busca por produto existente deve exibir o produto na listagem | Positivo |
-| CT004 | Busca por produto inexistente não deve exibir resultados | Negativo |
-| CT005 | Adicionar produto existente ao carrinho deve exibir o produto no carrinho | Positivo |
-| CT006 | Acessar carrinho sem produtos deve exibir mensagem de carrinho vazio | Negativo |
-| CT007 | Produto adicionado ao carrinho deve ter nome, quantidade e preço validados no checkout | Positivo |
-| CT008 | Prosseguir para checkout sem login deve exibir modal de autenticação | Negativo |
+| Feature | ID | Cenário | Tipo |
+|---|---|---|---|
+| Login | CT001 | Login com credenciais válidas deve redirecionar para área logada | Positivo |
+| Login | CT002 | Login com credenciais inválidas deve exibir mensagem de erro | Negativo |
+| Busca | CT001 | Busca por produto existente deve exibir o produto na listagem | Positivo |
+| Busca | CT002 | Busca por produto inexistente não deve exibir resultados | Negativo |
+| Carrinho | CT001 | Adicionar produto existente ao carrinho deve exibir o produto no carrinho | Positivo |
+| Carrinho | CT002 | Acessar carrinho sem produtos deve exibir mensagem de carrinho vazio | Negativo |
+| Checkout | CT001 | Produto adicionado ao carrinho deve ter nome e preço validados no checkout | Positivo |
+| Checkout | CT002 | Prosseguir para checkout sem login deve exibir modal de autenticação | Negativo |
 
 ### API — [api.trello.com](https://api.trello.com)
 
-| ID | Cenário | Tipo |
-|---|---|---|
-| CT009 | GET com ID válido deve retornar status 200 e exibir o name da list | Positivo |
-| CT010 | GET com ID inválido deve retornar status 404 | Negativo |
+| Feature | ID | Cenário | Tipo |
+|---|---|---|---|
+| API | CT001 | GET com ID válido deve retornar status 200 e exibir o name da list | Positivo |
+| API | CT002 | GET com ID inválido deve retornar status 404 | Negativo |
 
 ---
 
@@ -107,6 +114,11 @@ npm run cy:run:web
 npm run cy:run:api
 ```
 
+### Rodar uma feature específica (debug pontual)
+```bash
+npx cypress run --spec "cypress/test/e2e/01-login.cy.js"
+```
+
 ---
 
 ## 🧩 Padrões Utilizados
@@ -118,4 +130,7 @@ As ações de cada página estão encapsuladas em classes próprias dentro de `c
 Todos os seletores estão mapeados em `cypress/support/locators.js`, evitando repetição e facilitando atualizações quando a interface muda.
 
 **BDD / Gherkin**
-Os cenários de teste estão documentados em linguagem natural na pasta `/bdd/cenarios.feature`, servindo como documentação viva do comportamento esperado do sistema.
+Os cenários de teste estão documentados em linguagem natural na pasta `/bdd`, com um arquivo `.feature` por funcionalidade (Login, Busca, Carrinho, Checkout e API). Cada feature mantém sua própria numeração de cenários (CT001, CT002...), servindo como documentação viva do comportamento esperado do sistema.
+
+**Separação por Feature**
+Tanto os arquivos `.feature` quanto os specs `.cy.js` estão organizados individualmente por funcionalidade, seguindo a recomendação oficial do Cypress de estruturar os testes refletindo as áreas da aplicação, facilitando manutenção e execução isolada de cada conjunto de testes.
